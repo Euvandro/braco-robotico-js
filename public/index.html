@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery Knob demo</title>
+    <script src="js/jquery.min.js"></script>
+    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+    <script src="dist/jquery.knob.min.js"></script>
+    <script src="js/socket.io.min.js"></script>
+    <script>
+        var socket = io('http://192.168.0.114:3000', { transports: ['websocket', 'polling', 'flashsocket'] });
+
+
+        $(function ($) {
+
+            $(".base").knob({
+                change: function (value) {
+                    socket.emit("base", value);
+                },
+                release: function (value) {
+                    //console.log(this.$.attr('value'));
+                    console.log("release : " + value);
+                },
+                cancel: function () {
+                    console.log("cancel : ", this);
+                },
+                /*format : function (value) {
+                    return value + '%';
+                },*/
+                draw: function () {
+
+                    // "tron" case
+                    if (this.$.data('skin') == 'tron') {
+
+                        this.cursorExt = 0.3;
+
+                        var a = this.arc(this.cv)  // Arc
+                            , pa                   // Previous arc
+                            , r = 1;
+
+                        this.g.lineWidth = this.lineWidth;
+
+                        if (this.o.displayPrevious) {
+                            pa = this.arc(this.v);
+                            this.g.beginPath();
+                            this.g.strokeStyle = this.pColor;
+                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
+                            this.g.stroke();
+                        }
+
+                        this.g.beginPath();
+                        this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
+                        this.g.stroke();
+
+                        this.g.lineWidth = 2;
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.o.fgColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                        this.g.stroke();
+
+                        return false;
+                    }
+                }
+            });
+
+            // Example of infinite knob, iPod click wheel
+            var v, up = 0, down = 0, i = 0
+                , $idir = $("div.idir")
+                , $ival = $("div.ival")
+                , incr = function () { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+                , decr = function () { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+            $("input.infinite").knob(
+                {
+                    min: 0
+                    , max: 20
+                    , stopper: false
+                    , change: function () {
+                        if (v > this.cv) {
+                            if (up) {
+                                decr();
+                                up = 0;
+                            } else { up = 1; down = 0; }
+                        } else {
+                            if (v < this.cv) {
+                                if (down) {
+                                    incr();
+                                    down = 0;
+                                } else { down = 1; up = 0; }
+                            }
+                        }
+                        v = this.cv;
+                    }
+                });
+        });
+
+        $(function ($) {
+
+            $(".garra").knob({
+                change: function (value) {
+                    socket.emit("garra", value);
+                },
+                release: function (value) {
+                    //console.log(this.$.attr('value'));
+                    console.log("release : " + value);
+                },
+                cancel: function () {
+                    console.log("cancel : ", this);
+                },
+        
+                draw: function () {
+
+                    // "tron" case
+                    if (this.$.data('skin') == 'tron') {
+
+                        this.cursorExt = 0.3;
+
+                        var a = this.arc(this.cv)  // Arc
+                            , pa                   // Previous arc
+                            , r = 1;
+
+                        this.g.lineWidth = this.lineWidth;
+
+                        if (this.o.displayPrevious) {
+                            pa = this.arc(this.v);
+                            this.g.beginPath();
+                            this.g.strokeStyle = this.pColor;
+                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
+                            this.g.stroke();
+                        }
+
+                        this.g.beginPath();
+                        this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
+                        this.g.stroke();
+
+                        this.g.lineWidth = 2;
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.o.fgColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                        this.g.stroke();
+
+                        return false;
+                    }
+                }
+            });
+        });
+
+
+        $(function ($) {
+
+$(".altura").knob({
+    change: function (value) {
+        socket.emit("altura", value);
+    },
+    release: function (value) {
+        //console.log(this.$.attr('value'));
+        console.log("release : " + value);
+    },
+    cancel: function () {
+        console.log("cancel : ", this);
+    },
+
+    draw: function () {
+
+        // "tron" case
+        if (this.$.data('skin') == 'tron') {
+
+            this.cursorExt = 0.3;
+
+            var a = this.arc(this.cv)  // Arc
+                , pa                   // Previous arc
+                , r = 1;
+
+            this.g.lineWidth = this.lineWidth;
+
+            if (this.o.displayPrevious) {
+                pa = this.arc(this.v);
+                this.g.beginPath();
+                this.g.strokeStyle = this.pColor;
+                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
+                this.g.stroke();
+            }
+
+            this.g.beginPath();
+            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
+            this.g.stroke();
+
+            this.g.lineWidth = 2;
+            this.g.beginPath();
+            this.g.strokeStyle = this.o.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+            this.g.stroke();
+
+            return false;
+        }
+    }
+});
+});
+
+$(function ($) {
+
+$(".profundidade").knob({
+    change: function (value) {
+        socket.emit("profundidade", value);
+    },
+    release: function (value) {
+        //console.log(this.$.attr('value'));
+        console.log("release : " + value);
+    },
+    cancel: function () {
+        console.log("cancel : ", this);
+    },
+
+    draw: function () {
+
+        // "tron" case
+        if (this.$.data('skin') == 'tron') {
+
+            this.cursorExt = 0.3;
+
+            var a = this.arc(this.cv)  // Arc
+                , pa                   // Previous arc
+                , r = 1;
+
+            this.g.lineWidth = this.lineWidth;
+
+            if (this.o.displayPrevious) {
+                pa = this.arc(this.v);
+                this.g.beginPath();
+                this.g.strokeStyle = this.pColor;
+                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
+                this.g.stroke();
+            }
+
+            this.g.beginPath();
+            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
+            this.g.stroke();
+
+            this.g.lineWidth = 2;
+            this.g.beginPath();
+            this.g.strokeStyle = this.o.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+            this.g.stroke();
+
+            return false;
+        }
+    }
+});
+});
+
+function save(){
+    socket.emit("save");
+}
+
+function load(){
+    socket.emit("load");
+}
+
+function reset(){
+    socket.emit("reset");
+}
+
+
+
+    </script>
+
+
+    <style>
+        body {
+            padding: 0;
+            margin: 200px 100px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            text-rendering: optimizelegibility;
+        }
+
+        p {
+            font-size: 30px;
+            line-height: 30px
+        }
+
+        div.demo {
+            text-align: center;
+            width: 25%;
+            float: left
+        }
+
+        div.demo>p {
+            font-size: 20px
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo">
+
+        <input class="base" data-angleOffset=-125 data-angleArc=250 data-fgColor="#db2525" value="90" data-min="0"
+            data-max="179">
+        <p>Base</p>
+    </div>
+
+    <div class="demo">
+
+        <input class="garra" data-angleOffset=-125 data-angleArc=250 data-fgColor="#31db25" value="160" data-min="90"
+            data-max="160">
+        <p>Garra</p>
+    </div>
+
+    <div class="demo">
+
+        <input class="altura" data-angleOffset=-125 data-angleArc=250 data-fgColor="#2571db" value="140" data-min="100"
+            data-max="170">
+        <p>Altura</p>
+    </div>
+
+    <div class="demo">
+
+        <input class="profundidade" data-angleOffset=-125 data-angleArc=250 data-fgColor="#c925db" value="120"
+            data-min="80" data-max="150">
+        <p>Profundidade</p>
+    </div>
+
+    <!-- <div class="demo">
+
+        <button onclick="save()">Save</button>
+    </div>
+
+    <div class="demo">
+
+        <button onclick="load()">load</button>
+    </div>
+
+    <div class="demo">
+
+        <button onclick="reset()">reset</button>
+    </div> -->
+    
+
+
+
+
+
+</body>
+
+</html>
