@@ -8,7 +8,7 @@
     <script src="dist/jquery.knob.min.js"></script>
     <script src="js/socket.io.min.js"></script>
     <script>
-        var socket = io('http://192.168.0.114:3000', { transports: ['websocket', 'polling', 'flashsocket'] });
+        var socket = io('http://192.168.1.111:3000', { transports: ['websocket', 'polling', 'flashsocket'] });
 
 
         $(function ($) {
@@ -271,7 +271,7 @@ function reset(){
     <style>
         body {
             padding: 0;
-            margin: 200px 100px;
+            margin: 50px 100px;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-weight: 300;
             text-rendering: optimizelegibility;
@@ -295,6 +295,12 @@ function reset(){
 </head>
 
 <body>
+
+    <div style="width: 100%; text-align: center; margin-bottom: 50px;">
+
+        <img src="img/rexlab.png" style="width: 50%;" />
+
+    </div>
 
     <div class="demo">
 

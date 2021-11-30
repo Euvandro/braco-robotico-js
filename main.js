@@ -10,7 +10,7 @@ const io = new Server(server);
 
 const fs = require('fs');
 var five = require("johnny-five");
-var board = new five.Board({ port: 'COM5' });
+var board = new five.Board({ port: 'COM4' });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
